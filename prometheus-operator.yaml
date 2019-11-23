@@ -1,0 +1,12 @@
+prometheusOperator:
+  createCustomResource: false
+prometheus:
+  prometheusSpec:
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+grafana:
+  ingress:
+    enabled: true
+    hosts:
+    - monitoring.kites.rocks
