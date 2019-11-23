@@ -1,0 +1,14 @@
+backend:
+  type: es
+  es:
+    host: elasticsearch-master
+
+filter:
+  mergeJSONLog: true
+  mergeLogKey:  payload
+trackOffsets: true
+
+# metrics:
+#   enabled: true
+#   serviceMonitor:
+#     enabled: true

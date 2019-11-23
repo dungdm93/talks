@@ -1,8 +1,8 @@
 ## 1. Install nginx-ingress
 ```bash
-helm install stable/nginx-ingress \
-    --name=nginx-ingress \
-    --namespace=nginx-ingress
+helm upgrade --install nginx-ingress stable/nginx-ingress \
+    --namespace=nginx-ingress \
+    --values=nginx-ingress.yaml
 ```
 
 ## 2. Logging
@@ -11,10 +11,18 @@ helm install stable/nginx-ingress \
 helm repo add elastic https://helm.elastic.co
 helm repo update
 
+# ElasticSearch
 helm upgrade --install elasticsearch elastic/elasticsearch \
     --namespace=kube-observability \
     --values=elasticsearch.yaml
+
+# Kibana
 helm upgrade --install kibana elastic/kibana \
     --namespace=kube-observability \
     --values=kibana.yaml
+
+# Fluent-bit
+helm upgrade --install fluent-bit stable/fluent-bit \
+    --namespace=kube-observability \
+    --values=fluent-bit.yaml
 ```
