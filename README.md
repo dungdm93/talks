@@ -41,3 +41,10 @@ helm upgrade --install prometheus-operator stable/prometheus-operator \
     --namespace=kube-observability \
     --values=prometheus-operator.yaml
 ```
+
+Note:
+```
+Grafana:
+    username: admin
+    password: prom-operator
+```
