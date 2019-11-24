@@ -63,3 +63,6 @@ helm upgrade --install nginx-ingress stable/nginx-ingress \
 
 * Add Grafana Dashboard
 [grafana/dashboards/nginx.json](https://github.com/kubernetes/ingress-nginx/blob/master/deploy/grafana/dashboards/nginx.json)
+
+## 3. References
+* [slides](https://docs.google.com/presentation/d/1JEcoN9gzgN-50UBcpEuOTQWGtvFMdEHtT36ztRf3tg8/edit?usp=sharing)
