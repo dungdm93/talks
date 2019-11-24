@@ -27,6 +27,11 @@ helm upgrade --install fluent-bit stable/fluent-bit \
     --values=fluent-bit.yaml
 ```
 
+### 2.2 fluentbit parser
+```bash
+kubectl apply -f apache_logs.yaml
+```
+
 ## 3. Monitoring
 ### 3.1 Installation
 ```bash
