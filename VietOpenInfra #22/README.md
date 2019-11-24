@@ -1,8 +1,7 @@
 ## 1. Install nginx-ingress
 ```bash
 helm upgrade --install nginx-ingress stable/nginx-ingress \
-    --namespace=nginx-ingress \
-    --values=nginx-ingress.yaml
+    --namespace=nginx-ingress
 ```
 
 ## 2. Logging
