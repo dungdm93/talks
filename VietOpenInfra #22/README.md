@@ -48,3 +48,14 @@ Grafana:
     username: admin
     password: prom-operator
 ```
+
+### 3.2 Nginx-ingress metrics
+* Enable ServiceMonitor
+```bash
+helm upgrade --install nginx-ingress stable/nginx-ingress \
+    --namespace=nginx-ingress \
+    --values=nginx-ingress.yaml
+```
+
+* Add Grafana Dashboard
+[grafana/dashboards/nginx.json](https://github.com/kubernetes/ingress-nginx/blob/master/deploy/grafana/dashboards/nginx.json)
