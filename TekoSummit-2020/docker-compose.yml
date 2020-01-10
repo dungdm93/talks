@@ -1,17 +1,16 @@
 version: "3.7"
 
 services:
-  jupyter:
-    image: hub.teko.vn/data/pyspark-notebook:2.4.4-hadoop-3.2.1
+  minio:
+    image: minio/minio
+    command: [server, /data]
     environment:
-      GRANT_SUDO: "yes"
-      JUPYTER_ENABLE_LAB: "yes"
-    user: root
+      MINIO_ACCESS_KEY: admin
+      MINIO_SECRET_KEY: SuperSecr3t
     ports:
-    - 8888:8888
-    - 4040:4040 # spark app
+    - 9000:9000
     volumes:
-    - ./work:/home/jovyan/work
+    - minio_data:/data
 
   mysql:
     image: mysql:8.0
@@ -25,16 +24,17 @@ services:
     - ./sample/mysql/:/docker-entrypoint-initdb.d/
     - mysql_data:/var/lib/mysql
 
-  minio:
-    image: minio/minio
-    command: [server, /data]
+  jupyter:
+    image: hub.teko.vn/data/pyspark-notebook:2.4.4-hadoop-3.2.1
     environment:
-      MINIO_ACCESS_KEY: admin
-      MINIO_SECRET_KEY: SuperSecr3t
+      GRANT_SUDO: "yes"
+      JUPYTER_ENABLE_LAB: "yes"
+    user: root
     ports:
-    - 9000:9000
+    - 8888:8888
+    - 4040:4040 # spark app
     volumes:
-    - minio_data:/data
+    - ./work:/home/jovyan/work
 
 volumes:
   mysql_data:
