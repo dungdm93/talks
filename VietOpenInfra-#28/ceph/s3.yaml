@@ -15,5 +15,5 @@ spec:
       codingChunks: 1
   preservePoolsOnDelete: true
   gateway:
-    port: 80
+    port: 7480
     instances: 3
