@@ -1,0 +1,72 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    image: ceph/ceph:v15.2.3
+    allowUnsupported: false
+  dataDirHostPath: /var/lib/rook
+  skipUpgradeChecks: false
+  continueUpgradeAfterChecksEvenIfNotHealthy: false
+  removeOSDsIfOutAndSafeToRemove: false
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+  # mgr:
+  #   modules:
+  #   - name: pg_autoscaler
+  #     enabled: true
+  #   - name: alerts
+  #     enabled: true
+  # dashboard:
+  #   enabled: true
+  #   ssl: false
+  # monitoring:
+  #   enabled: true
+  #   rulesNamespace: rook-ceph
+  # crashCollector:
+  #   disable: false
+  network:
+    provider: host
+  storage:
+    config:
+      storeType: bluestore
+
+    useAllDevices: false
+    # deviceFilter: ^sd.
+    # devicePathFilter: ^/dev/disk/by-id/google-hdd-.*
+
+    useAllNodes: false
+    nodes:
+    - name: node-1
+      deviceFilter: ^sd[a-h]
+      resources:
+        requests:
+          cpu: "2"
+          memory: "3Gi"
+        limits:
+          cpu: "3"
+          memory: "5Gi"
+    - name: node-2
+      resources:
+        requests:
+          cpu: "3"
+          memory: "6Gi"
+        limits:
+          cpu: "5"
+          memory: "10Gi"
+      devices:
+      - name: sdc
+        config:
+          metadataDevice: sda
+      - name: sdd
+        config:
+          metadataDevice: sda
+      - name: sde
+        config:
+          metadataDevice: sdb
+      - name: sdf
+        config:
+          metadataDevice: sdb

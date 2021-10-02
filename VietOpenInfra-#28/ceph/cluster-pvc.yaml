@@ -1,0 +1,71 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    image: ceph/ceph:v15.2.3
+    allowUnsupported: false
+  dataDirHostPath: /var/lib/rook
+  skipUpgradeChecks: false
+  continueUpgradeAfterChecksEvenIfNotHealthy: false
+  removeOSDsIfOutAndSafeToRemove: false
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+    volumeClaimTemplate:
+      spec:
+        resources:
+          requests:
+            storage: 10Gi
+  # mgr:
+  #   modules:
+  #   - name: pg_autoscaler
+  #     enabled: true
+  #   - name: alerts
+  #     enabled: true
+  # dashboard:
+  #   enabled: true
+  #   ssl: false
+  # monitoring:
+  #   enabled: true
+  #   rulesNamespace: rook-ceph
+  # crashCollector:
+  #   disable: false
+  network:
+    provider: host
+  storage:
+    config:
+      storeType: bluestore
+    storageClassDeviceSets:
+    - name: hdd
+      count: 5
+      portable: true
+      encrypted: false
+      volumeClaimTemplates:
+      - metadata:
+          name: data
+        spec:
+          storageClassName: standard # hdd
+          volumeMode: Block
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+    - name: ssd
+      count: 3
+      portable: true
+      encrypted: false
+      volumeClaimTemplates:
+      - metadata:
+          name: data
+        spec:
+          storageClassName: premium-rwo # ssd
+          volumeMode: Block
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
