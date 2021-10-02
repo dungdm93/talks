@@ -19,15 +19,15 @@ spec:
         resources:
           requests:
             storage: 10Gi
-  # mgr:
-  #   modules:
-  #   - name: pg_autoscaler
-  #     enabled: true
-  #   - name: alerts
-  #     enabled: true
-  # dashboard:
-  #   enabled: true
-  #   ssl: false
+  mgr:
+    modules:
+    - name: pg_autoscaler
+      enabled: true
+    - name: alerts
+      enabled: true
+  dashboard:
+    enabled: true
+    ssl: false
   # monitoring:
   #   enabled: true
   #   rulesNamespace: rook-ceph
